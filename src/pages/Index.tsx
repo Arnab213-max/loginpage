@@ -1,11 +1,29 @@
-// Update this page (the content is just a fallback if you fail to update the page)
+
+import LoginForm from "../components/LoginForm";
+import { useAuth } from "../contexts/AuthContext";
+import { Button } from "@/components/ui/button";
 
 const Index = () => {
+  const { user, logout } = useAuth();
+
   return (
-    <div className="min-h-screen flex items-center justify-center bg-gray-100">
-      <div className="text-center">
-        <h1 className="text-4xl font-bold mb-4">Welcome to Your Blank App</h1>
-        <p className="text-xl text-gray-600">Start building your amazing project here!</p>
+    <div className="min-h-screen flex flex-col items-center justify-center bg-gray-50 px-4">
+      {user ? (
+        <div className="w-full max-w-md p-8 space-y-8 bg-white rounded-xl shadow-lg text-center">
+          <h1 className="text-3xl font-bold text-gray-800">Welcome, {user.name}!</h1>
+          <p className="text-gray-600">You are now logged in.</p>
+          <Button onClick={logout} variant="outline" className="mt-4">
+            Sign Out
+          </Button>
+        </div>
+      ) : (
+        <LoginForm />
+      )}
+
+      <div className="mt-8 text-center text-gray-500 text-sm">
+        <p>Demo credentials:</p>
+        <p>Email: user@example.com</p>
+        <p>Password: password123</p>
       </div>
     </div>
   );
